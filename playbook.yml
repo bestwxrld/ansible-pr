@@ -1,0 +1,63 @@
+- name: Setup Web Server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create ansible-worker user
+      user:
+        name: ansible-worker
+        state: present
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Copy SSH keys
+      copy:
+        src: ssh_keys/
+        dest: /home/ansible-worker/.ssh/
+        mode: 0600
+      ignore_errors: yes
+
+    - name: Clone repository
+      git:
+        repo: "https://github.com/example/repository.git"
+        dest: /home/ansible-worker/www/
+        force: yes
+
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /home/ansible-worker/www/index.html
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Copy Nginx configuration file
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/sites-available/ansible.iphilka.ru.conf
+
+    - name: Create symlink in sites-enabled
+      file:
+        src: /etc/nginx/sites-available/ansible.iphilka.ru.conf
+        dest: /etc/nginx/sites-enabled/ansible.iphilka.ru.conf
+        state: link
+
+    - name: Set file permissions
+      file:
+        path: "{{ item }}"
+        owner: ansible-worker
+        group: ansible-worker
+        mode: "0644"
+      with_items:
+        - /home/ansible-worker/www/index.html
+        - /etc/nginx/sites-available/ansible.iphilka.ru.conf
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
