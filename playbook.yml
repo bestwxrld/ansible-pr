@@ -24,10 +24,10 @@
       apt:
         name: nginx
         state: present
-        
+
     - name: Copy Nginx configuration file
       copy:
-        src: nginx.conf
+        src: /etc/nginx/sites-enabled/ansible.iphilka.ru.conf
         dest: /etc/nginx/sites-available/ansible.iphilka.ru.conf
 
     - name: Create symlink in sites-enabled
