@@ -1,5 +1,8 @@
-/ssh_keys/
-/.ssh/
-/.bash_history/
-/bashrc/
-/.profile/
+ssh_keys
+.ssh
+.bash_history
+bashrc
+.profile
+.ansible
+.bash_logout
+
