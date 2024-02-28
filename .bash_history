@@ -38,3 +38,5 @@ cd /ansible-worker/www
 cd /www
 mkdir www
 su gotika
+ansible-playbook -i hosts.ini playbook.yml
+sudo ansible-playbook -i hosts.ini playbook.yml

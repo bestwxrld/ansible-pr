@@ -16,7 +16,7 @@
     - name: Copy SSH keys
       copy:
         src: ssh_keys/
-        dest: /home/ansible-worker/.ssh/
+        dest: /home/ansible-worker/ssh_keys/
         mode: 0600
       ignore_errors: no
 
