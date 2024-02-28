@@ -18,7 +18,7 @@
         src: ssh_keys/
         dest: /home/ansible-worker/.ssh/
         mode: 0600
-      ignore_errors: yes
+      ignore_errors: no
 
     - name: Install Nginx
       apt:
@@ -27,8 +27,8 @@
 
     - name: Copy Nginx configuration file
       copy:
-        src: /etc/nginx/sites-enabled/ansible.iphilka.ru.conf
-        dest: /etc/nginx/sites-available/ansible.iphilka.ru.conf
+        src: files/ansible.iphilka.ru.conf
+        dest: /etc/nginx/sites-available/
 
     - name: Create symlink in sites-enabled
       file:
