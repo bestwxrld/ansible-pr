@@ -20,6 +20,16 @@
         mode: 0600
       ignore_errors: no
 
+    - name: Set file permissions
+      file:
+        path: "{{ item }}"
+        owner: ansible-worker
+        group: ansible-worker
+        mode: "0644"
+      with_items:
+        - /home/ansible-worker/www/index.html
+        - /etc/nginx/sites-available/ansible.iphilka.ru.conf
+
     - name: Install Nginx
       apt:
         name: nginx
@@ -35,16 +45,6 @@
         src: /etc/nginx/sites-available/ansible.iphilka.ru.conf
         dest: /etc/nginx/sites-enabled/ansible.iphilka.ru.conf
         state: link
-
-    - name: Set file permissions
-      file:
-        path: "{{ item }}"
-        owner: ansible-worker
-        group: ansible-worker
-        mode: "0644"
-      with_items:
-        - /home/ansible-worker/www/index.html
-        - /etc/nginx/sites-available/ansible.iphilka.ru.conf
 
     - name: Restart Nginx
       service:
