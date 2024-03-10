@@ -1,7 +1,7 @@
 sudo apt update
 sudo apt install git
 sudo apt install nginx
-sudo cp ansible.iphilka.ru.conf /etc/nginx/sites-available/
+sudo cp files/ansible.iphilka.ru.conf /etc/nginx/sites-available/
 sudo ln -s /etc/nginx/sites-available/ansible.iphilka.ru.conf /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 sudo chown -R ansible-worker:ansible-worker /home/ansible-worker/www/
